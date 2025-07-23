@@ -48,7 +48,8 @@ requirements:
     "test_final_data_transform_factory_ungroup_and_locale",
     "test_natsort_keygen_with_locale",
     "test_natsorted_can_sort_locale_specific_numbers_en",
-    "test_natsorted_can_sort_locale_specific_numbers_de"
+    "test_natsorted_can_sort_locale_specific_numbers_de",
+    "test_natsorted_locale_bug_regression_test_109"
 ] %}
 
 test:
