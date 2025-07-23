@@ -43,12 +43,14 @@ requirements:
 # - test_missing_unicode_number_in_collection: runtime crush
 # - test_final_data_transform_factory_default: unsupported locale setting (osx)
 # - test_final_data_transform_factory_ungroup_and_locale: unsupported locale setting (osx)
+# - test_natsort_keygen_with_locale: unsupported locale setting (osx)
 {% set skip_keywords = [
     "test_natsorted_can_sort_using_locale",
     "test_natsorted_handles_mixed_types_with_locale",
     "test_missing_unicode_number_in_collection",
     "test_final_data_transform_factory_default",
-    "test_final_data_transform_factory_ungroup_and_locale"
+    "test_final_data_transform_factory_ungroup_and_locale",
+    "test_natsort_keygen_with_locale"
 ] %}
 
 test:
