@@ -33,23 +33,20 @@ requirements:
 
 # - test_string_component_transform_factory: runtime crush
 # - test_input_string_transform_factory: unsupported locale setting (osx)
+# - test_natsorted: unsupported locale setting (osx)
 {% set skip_files = [
     "tests/test_string_component_transform_factory.py",
-    "tests/test_input_string_transform_factory.py"
+    "tests/test_input_string_transform_factory.py",
+    "tests/test_natsorted.py"
 ] %}
 
 # - test_missing_unicode_number_in_collection: runtime crush
 # - other tests: unsupported locale setting (osx)
 {% set skip_keywords = [
-    "test_natsorted_can_sort_using_locale",
-    "test_natsorted_handles_mixed_types_with_locale",
     "test_missing_unicode_number_in_collection",
     "test_final_data_transform_factory_default",
     "test_final_data_transform_factory_ungroup_and_locale",
     "test_natsort_keygen_with_locale",
-    "test_natsorted_can_sort_locale_specific_numbers_en",
-    "test_natsorted_can_sort_locale_specific_numbers_de",
-    "test_natsorted_locale_bug_regression_test_109"
 ] %}
 
 test:
