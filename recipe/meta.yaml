@@ -57,7 +57,8 @@ requirements:
     "test_input_string_transform_factory_handles_german_locale",
     "test_input_string_transform_factory_does_nothing_with_non_num_input",
     "test_os_sorted_corpus",
-    "test_string_component_transform_factory"
+    "test_string_component_transform_factory",
+    "test_parse_number_factory_makes_function_that_returns_tuple"
 ] %}
 
 test:
