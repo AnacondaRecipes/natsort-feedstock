@@ -31,12 +31,6 @@ requirements:
 # =======================
 {% set test_root = "tests" %}
 
-# - test_string_component_transform_factory: runtime crush
-# - other: unsupported locale setting (osx)
-{% set skip_files = [
-    "tests/test_string_component_transform_factory.py",
-] %}
-
 # - test_missing_unicode_number_in_collection: runtime crush
 # - other tests: unsupported locale setting (osx)
 {% set skip_keywords = [
@@ -89,7 +83,7 @@ test:
     - natsort.utils
   commands:
     - pip check
-    - pytest -v {{ test_root }}{% for file in skip_files %} --ignore={{ file }}{% endfor %} -k "not ({{ skip_keywords | join(' or ') }})" --tb=short --hypothesis-profile=slow-tests
+    - pytest -v {{ test_root }} -k "not ({{ skip_keywords | join(' or ') }})" --tb=short --hypothesis-profile=slow-tests
 
 about:
   home: https://github.com/SethMMorton/natsort
