@@ -38,13 +38,8 @@ requirements:
     "tests/test_input_string_transform_factory.py"
 ] %}
 
-# - test_natsorted_can_sort_using_locale: locale error
-# - test_natsorted_handles_mixed_types_with_locale: locale error
 # - test_missing_unicode_number_in_collection: runtime crush
-# - test_final_data_transform_factory_default: unsupported locale setting (osx)
-# - test_final_data_transform_factory_ungroup_and_locale: unsupported locale setting (osx)
-# - test_natsort_keygen_with_locale: unsupported locale setting (osx)
-# - test_natsorted_can_sort_locale_specific_numbers_en: unsupported locale setting (osx)
+# - other tests: unsupported locale setting (osx)
 {% set skip_keywords = [
     "test_natsorted_can_sort_using_locale",
     "test_natsorted_handles_mixed_types_with_locale",
@@ -52,7 +47,8 @@ requirements:
     "test_final_data_transform_factory_default",
     "test_final_data_transform_factory_ungroup_and_locale",
     "test_natsort_keygen_with_locale",
-    "test_natsorted_can_sort_locale_specific_numbers_en"
+    "test_natsorted_can_sort_locale_specific_numbers_en",
+    "test_natsorted_can_sort_locale_specific_numbers_de"
 ] %}
 
 test:
