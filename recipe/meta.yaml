@@ -25,6 +25,9 @@ requirements:
     - wheel
   run:
     - python
+  run_constrained:
+    - fastnumbers >=2.0.0
+    - pyicu >= 1.0.0
 
 # =======================
 # Test configuration
