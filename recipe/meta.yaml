@@ -1,46 +1,86 @@
 {% set name = "natsort" %}
-{% set version = "7.1.1" %}
-{% set sha256 = "00c603a42365830c4722a2eb7663a25919551217ec09a243d3399fa8dd4ac403" %}
+{% set version = "8.4.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
+source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581
 
 build:
-  noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  skip: true  # [py<37]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - natsort = natsort.__main__:main
 
 requirements:
   host:
-    - python >=3.5
+    - python
     - pip
+    - setuptools
+    - wheel
   run:
-    - python >=3.5
+    - python
+  run_constrained:
+    - fastnumbers >=2.0.0
+    - pyicu >= 1.0.0
+
+# =======================
+# Test configuration
+# =======================
+{% set test_root = "tests" %}
+
+# - test_string_component_transform_factory: segmentation fault
+# - other tests: unsupported locale setting (osx)
+{% set skip_keywords = [
+  "test_string_component_transform_factory",
+  "test_natsorted_can_sort_using_locale",
+  "test_natsorted_can_sort_locale_specific_numbers_en",
+  "test_natsorted_can_sort_locale_specific_numbers_de",
+  "test_natsorted_locale_bug_regression_test_109",
+  "test_natsorted_locale_bug_regression_test_140",
+  "test_natsorted_handles_mixed_types_with_locale",
+] %}
 
 test:
+  requires:
+    - pip
+    - pytest
+    - pytest-mock
+    - hypothesis
+    - typing_extensions
+  source_files:
+    - {{ test_root }}
   imports:
     - natsort
-    - natsort.compat
+    - natsort.__main__
+    - natsort.compat.fake_fastnumbers
+    - natsort.compat.fastnumbers
+    - natsort.compat.locale
+    - natsort.natsort
+    - natsort.ns_enum
+    - natsort.unicode_numbers
+    - natsort.unicode_numeric_hex
+    - natsort.utils
   commands:
-    - natsort -h
+    - pip check
+    - export LC_ALL=en_US.UTF-8  # [osx]
+    - pytest -v {{ test_root }} -k "not ({{ skip_keywords | join(' or ') }})" --tb=short --hypothesis-profile=slow-tests
 
 about:
   home: https://github.com/SethMMorton/natsort
   license: MIT
+  license_family: MIT
   license_file: LICENSE
-  summary: Sort lists naturally
+  summary: Simple yet flexible natural sorting in Python
   description: |
     natsort is a general utility for sorting lists naturally either as numbers
     or as versions.
-  doc_url: http://natsort.readthedocs.io/
+  doc_url: https://natsort.readthedocs.io/
   dev_url: https://github.com/SethMMorton/natsort
 
 extra:
