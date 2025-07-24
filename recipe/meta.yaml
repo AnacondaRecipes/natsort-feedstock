@@ -34,9 +34,10 @@ requirements:
 # =======================
 {% set test_root = "tests" %}
 
-# - test_missing_unicode_number_in_collection: runtime crush
+# - test_string_component_transform_factory: segmentation fault
 # - other tests: unsupported locale setting (osx)
-{% set skip_keywords = [
+{% set skip_keywords_ = [
+    "test_string_component_transform_factory",
     "test_missing_unicode_number_in_collection",
     "test_natsorted_can_sort_using_locale",
     "test_natsorted_can_sort_locale_specific_numbers_en",
@@ -60,15 +61,23 @@ requirements:
     "test_input_string_transform_factory_handles_german_locale",
     "test_input_string_transform_factory_does_nothing_with_non_num_input",
     "test_os_sorted_corpus",
-    "test_string_component_transform_factory",
     "test_parse_number_factory_makes_function_that_returns_tuple"
+] %}
+
+{% set skip_keywords = [
+  "test_string_component_transform_factory",
+  "test_natsorted_can_sort_using_locale",
+  "test_natsorted_can_sort_locale_specific_numbers_en",
+  "test_natsorted_can_sort_locale_specific_numbers_de",
+  "test_natsorted_locale_bug_regression_test_109",
+  "test_natsorted_locale_bug_regression_test_140",
+  "test_natsorted_handles_mixed_types_with_locale",
 ] %}
 
 test:
   requires:
     - pip
     - pytest
-    - pytest-cov
     - pytest-mock
     - hypothesis
     - typing_extensions
@@ -87,6 +96,7 @@ test:
     - natsort.utils
   commands:
     - pip check
+    - export LC_ALL=en_US.UTF-8  # [osx]
     - pytest -v {{ test_root }} -k "not ({{ skip_keywords | join(' or ') }})" --tb=short --hypothesis-profile=slow-tests
 
 about:
